@@ -6,7 +6,6 @@ const cors = require('koa2-cors');
 
 const until = require('./app/until')
 const device = require('./app/device');
-const { default: api } = require('./src/api');
 
 const app = new Koa();
 app.use(cors());

@@ -51,17 +51,27 @@ export default {
           type: "list"
         })
         .then(res => {
-          console.log(res);
+          this.list = res.data;
         });
     },
     showClick(item) {
-      console.log(item);
-      this.$router.push(`/show`);
+      console.log(item)
+      this.$router.push({
+        name: "show",
+        params: {
+          ...item
+        }
+      });
     },
-    deleteClick(item) {
-      this.api.confirm("确定删除？").then(({ result }) => {
+    deleteClick({ id }) {
+      this.api.confirm("确定删除？").then(async ({ result }) => {
         if (result) {
-          console.log(item);
+          let { msg } = await this.api.service.fetch({
+            type: "delete",
+            data: { id }
+          });
+          this.api.toast(msg);
+          this.initData();
         }
       });
     },
@@ -69,6 +79,7 @@ export default {
       this.$router.push(`/edit`);
     },
     editClick(item) {
+      this.api.toast("暂未开发");
       console.log(item);
     }
   }

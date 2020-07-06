@@ -1,7 +1,7 @@
 
 const storage = require('./storage')
 
-const api = storage.init('cfg.json', './dist')
+const api = storage.init('cfg.json', './app/dist/')
 
 module.exports = class {
 
@@ -12,6 +12,7 @@ module.exports = class {
             ip: obj.hostname,
             name,
             rstp,
+            snapshort: 'https://muse-ui.org/img/sun.a646a52d.jpg',
             onvif
         })
         return true
@@ -25,7 +26,7 @@ module.exports = class {
     }
 
     static async list(){
-        await api.read()
+        return await api.read()
     }
 
     static async delete(id){
