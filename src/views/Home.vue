@@ -41,7 +41,19 @@ export default {
       ]
     };
   },
+  created() {
+    this.initData();
+  },
   methods: {
+    initData() {
+      this.api.service
+        .fetch({
+          type: "list"
+        })
+        .then(res => {
+          console.log(res);
+        });
+    },
     showClick(item) {
       console.log(item);
       this.$router.push(`/show`);

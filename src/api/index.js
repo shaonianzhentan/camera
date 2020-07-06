@@ -2,6 +2,8 @@ import Vue from 'vue'
 import BaseApi from './lib/baseApi'
 import Storage from './lib/baseStorage'
 import Validate from './lib/baseValidate'
+import service from './service'
+
 import Toast from 'muse-ui-toast';
 import Message from 'muse-ui-message';
 import Loading from 'muse-ui-loading';
@@ -9,11 +11,13 @@ import Loading from 'muse-ui-loading';
 const storage = new Storage({
     prefix: 'prefix',
     constant: [
+        "token"
     ]
 })
 const validate = new Validate()
 class API {
 
+    get service() { return service }
     get storage() { return storage }
     get validate() { return validate }
 
@@ -36,7 +40,7 @@ class API {
     }
 
     toast(msg, options = {}) {
-        Toast.messasge({
+        Toast.message({
             message: msg,
             ...options
         })
@@ -47,7 +51,7 @@ class API {
     }
 
     confirm(msg, options = {}, title = "提示") {
-       return Message.confirm(msg, title, options);
+        return Message.confirm(msg, title, options);
     }
 
     prompt(msg, options = {}, title = "提示") {
