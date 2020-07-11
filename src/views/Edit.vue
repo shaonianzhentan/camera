@@ -9,10 +9,10 @@
       <mu-form-item prop="name" label="设备名称" :rules="nameRules">
         <mu-text-field v-model.trim="form.name" placeholder="客厅的摄像监控"></mu-text-field>
       </mu-form-item>
-      <mu-form-item prop="rstp" label="rstp地址" :rules="rstpRules">
+      <mu-form-item prop="rtsp" label="rtsp地址" :rules="rtspRules">
         <mu-text-field
-          v-model.trim="form.rstp"
-          placeholder="rstp://user:password@192.168.1.111:554/live"
+          v-model.trim="form.rtsp"
+          placeholder="rtsp://user:password@192.168.1.111:554/live"
         ></mu-text-field>
       </mu-form-item>
       <mu-form-item prop="onvif" label="onvif地址">
@@ -32,11 +32,11 @@ export default {
     return {
       form: {
         name: "客厅的摄像头",
-        rstp: "rstp://user@pass@192.168.1.111:544/live",
+        rtsp: "rtsp://192.168.1.117:554/live",
         onvif: ""
       },
       nameRules: [{ validate: val => !!val, message: "设备名称不能为空" }],
-      rstpRules: [{ validate: val => !!val, message: "rstp地址不能为空" }]
+      rtspRules: [{ validate: val => !!val, message: "rtsp地址不能为空" }]
     };
   },
   methods: {
