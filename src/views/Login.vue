@@ -18,8 +18,8 @@ export default {
   data() {
     return {
       form: {
-        user: "",
-        pwd: ""
+        user: "admin",
+        pwd: "password"
       },
       usernameRules: [
         { validate: val => !!val, message: "必须填写用户名" },

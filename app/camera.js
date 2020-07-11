@@ -1,17 +1,15 @@
 const onvif = require('node-onvif');
 const fs = require('fs')
 const { spawn } = require('child_process');
-
-// 视频存放目录
-const cacheDir = ''
+const until = require('./until')
 
 module.exports = class {
 
     constructor({ ip, rtsp }) {
-        let p = `${cacheDir}/${ip}`
+        let p = `${until.storagePath}${ip}`
         // 创建文件夹
         if (!fs.existsSync(p)) {
-            fs.mkdirSync(`${cacheDir}/${ip}`)
+            fs.mkdirSync(`${until.storagePath}${ip}`)
         }
         this.ipPath = p
 
@@ -76,10 +74,10 @@ module.exports = class {
     }
 
     list() {
+        let arr = fs.readdirSync(this.ipPath)
+        console.log(arr)
         // 录像列表
-
+        return arr
     }
-
-
 
 }

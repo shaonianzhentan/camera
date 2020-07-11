@@ -3,8 +3,13 @@ const storage = require('./storage')
 const api = storage.init('cfg.json', './app/dist/')
 
 const Camera = require('./camera')
+let camera = {}
 
 module.exports = class {
+
+    static get camera() {
+        return camera
+    }
 
     static async add({ name, rtsp, onvif }) {
         let obj = new URL(rtsp)
@@ -19,7 +24,7 @@ module.exports = class {
             onvif
         })
         // 启动录制
-        this[ip] = new Camera({ ip, rtsp })
+        camera[ip] = new Camera({ ip, rtsp })
         return true
     }
 
@@ -31,12 +36,18 @@ module.exports = class {
     }
 
     static async list() {
-        return await api.read()
+        let arr = await api.read()
+        arr.forEach(ele=>{
+            let ip = ele.ip
+            let rtsp = ele.rtsp
+            if(!Reflect.has(camera, ip)){
+                camera[ip] = new Camera({ip, rtsp})
+            }
+        })
+        return arr
     }
 
     static async delete(id) {
         await api.del(id)
     }
-
-
 }

@@ -24,6 +24,9 @@ app.use(async ctx => {
         // 判断url是否存在
         if (url.includes(token)) {
             console.log('有权限访问')
+            let filePath = url.replace(`/${token}`, '')
+            console.log(until.storagePath, filePath)
+            await send(ctx, filePath, { root: until.storagePath });
         }
     } else if (method == 'POST') {
         let { type, data } = body
@@ -45,6 +48,10 @@ app.use(async ctx => {
             } else if (type == "list") {
                 let list = await device.list()
                 res = { code: 0, data: list }
+            } else if (type == "camera") {
+                let c = device.camera[data.ip]
+                let arr = c ? c.list() : []
+                res = { code: 0, data: arr }
             }
         }
         // 登录接口
