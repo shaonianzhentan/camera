@@ -10,11 +10,17 @@
     </mu-appbar>
     <mu-card style="width: 100%;">
       <mu-card-media>
-      <video id=vid1 style="width:100%" class="vjs-default-skin" controls>
+      <video
+    id="my-player"
+    class="video-js"
+    controls
+    preload="auto"
+    style="width:100%" 
+    data-setup='{}'>
         <source
           :src="src"
-          type="application/x-mpegURL">
-      </video>
+          type="application/x-mpegURL" />
+</video>
       
       </mu-card-media>
       <mu-card-actions>
@@ -71,6 +77,20 @@ export default {
       let url = `/${this.api.storage.get('token')}/${this.device.ip}/${date}/playlist.m3u8`
       console.log(url)
       this.src = `http://localhost:3001${url}`
+
+      let videojs = window.videojs
+
+      this.player = videojs('my-player', {}, function onPlayerReady() {
+        videojs.log('Your player is ready!');
+
+        // In this context, `this` is the player that was created by Video.js.
+        this.play();
+
+        // How about an event listener?
+        this.on('ended', function() {
+          videojs.log('Awww...over so soon?!');
+        });
+      });
     },
     backClick() {
       this.$router.back();
