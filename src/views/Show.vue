@@ -74,9 +74,9 @@ export default {
         })
     },
     loadData(date){
-      let url = `/${this.api.storage.get('token')}/${this.device.ip}/${date}/playlist.m3u8`
+      let url = `${this.api.service.origin}${this.api.storage.get('token')}/${this.device.ip}/${date}/playlist.m3u8`
       console.log(url)
-      this.src = `http://localhost:3001${url}`
+      this.src = url
 
       let videojs = window.videojs
 
